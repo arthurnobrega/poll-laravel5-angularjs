@@ -1,0 +1,9 @@
+<h1>Lista de Enquetes</h1>
+
+<hr/>
+
+<ul>
+    <li ng-repeat="poll in ctrl.polls">
+        <a href="#/poll/{{ $index }}">{{ poll.title }}</a>
+    </li>
+</ul>

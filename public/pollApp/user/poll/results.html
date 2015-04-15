@@ -1,0 +1,11 @@
+<h1>{{ ctrl.poll.title }}</h1>
+
+<hr />
+
+<ul>
+    <li ng-repeat="option in ctrl.poll.options">
+        {{ option.text }}: {{ option.votes }} votos
+    </li>
+</ul>
+
+<a href="#/polls">Voltar para a lista</button>

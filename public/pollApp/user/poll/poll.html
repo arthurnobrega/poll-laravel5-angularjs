@@ -1,0 +1,26 @@
+<h1>{{ ctrl.poll.title }}</h1>
+
+<hr />
+
+<form name="pollForm" ng-submit="pollForm.$valid && ctrl.vote(ctrl.selectedOption)" novalidate>
+    <ul>
+        <li ng-repeat="option in ctrl.poll.options">
+            <label>
+                <input type="radio" name="option" value="{{ $index }}" ng-model="ctrl.selectedOption" required>
+                {{ option.text }}
+            </label>
+        </li>
+    </ul>
+
+    <!-- {{ pollForm.option | json }} -->
+
+    <div ng-if="pollForm.$submitted && pollForm.option.$error">
+        Por favor selecione uma das opções acima.
+    </div>
+
+    <div>
+        <button type="submit">Votar</button>
+    </div>
+</form>
+
+<a href="#/polls">Voltar para a lista</button>

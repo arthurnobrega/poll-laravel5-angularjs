@@ -14,10 +14,18 @@
 // Route::get('/', 'WelcomeController@index');
 
 Route::get('/', 'PollController@index');
-Route::get('api/poll/{id?}', 'PollController@getPoll');
-Route::post('api/poll', 'PollController@postPoll');
-Route::put('api/poll/{id}', 'PollController@putPoll');
-Route::delete('api/poll/{id}', 'PollController@deletePoll');
+
+// Routes for Polls
+Route::get('api/polls/{id?}', 'PollController@getPoll');
+Route::post('api/polls', 'PollController@postPoll');
+Route::put('api/polls/{id}', 'PollController@putPoll');
+Route::delete('api/polls/{id}', 'PollController@deletePoll');
+
+// Route for Poll Options
+Route::get('api/polls/{pollId}/options/{optionId?}', 'PollOptionController@getPollOption');
+Route::post('api/polls/{pollId}/options', 'PollOptionController@postPollOption');
+Route::put('api/polls/{pollId}/options/{optionId}', 'PollOptionController@putPollOption');
+Route::delete('api/polls/{pollId}/options/{optionId}', 'PollOptionController@deletePollOption');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

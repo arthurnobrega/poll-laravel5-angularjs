@@ -11,5 +11,7 @@ angular.module('pollApp')
 .controller('ListPollController', function(Polls) {
     var self = this;
 
-    self.polls = Polls.getAllPolls();
+    Polls.query(function(polls) {
+        self.polls = polls;
+    });
 });

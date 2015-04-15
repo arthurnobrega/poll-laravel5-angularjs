@@ -1,9 +1,17 @@
-<h1>Lista de Enquetes</h1>
+<div class="row">
+    <div class="col-md-8">
+        <h1>List of Polls</h1>
+    </div>
+    <div class="col-md-4 text-right">
+        <br>
+        <a href="#/admin/polls">Go to admin view <em>(without security)</em></a>
+    </div>
+</div>
 
 <hr/>
 
-<ul>
-    <li ng-repeat="poll in ctrl.polls">
-        <a href="#/poll/{{ $index }}">{{ poll.title }}</a>
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="poll in ctrl.polls">
+        <h3><a href="#/poll/{{ poll.id }}">{{ poll.title }}</a></h3>
     </li>
 </ul>

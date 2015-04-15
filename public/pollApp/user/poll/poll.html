@@ -1,12 +1,20 @@
-<h1>{{ ctrl.poll.title }}</h1>
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ ctrl.poll.title }}</h1>
+    </div>
+    <div class="col-md-4 text-right">
+        <br>
+        <a href="#/admin/polls">Go to admin view <em>(without security)</em></a>
+    </div>
+</div>
 
 <hr />
 
-<form name="pollForm" ng-submit="pollForm.$valid && ctrl.vote(ctrl.selectedOption)" novalidate>
-    <ul>
-        <li ng-repeat="option in ctrl.poll.options">
+<form name="pollForm" ng-submit="pollForm.$valid && ctrl.vote(ctrl.selectedOptionIndex)" novalidate>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="option in ctrl.poll.options">
             <label>
-                <input type="radio" name="option" value="{{ $index }}" ng-model="ctrl.selectedOption" required>
+                <input type="radio" name="option" value="{{ $index }}" ng-model="ctrl.selectedOptionIndex" required>
                 {{ option.text }}
             </label>
         </li>
@@ -15,12 +23,12 @@
     <!-- {{ pollForm.option | json }} -->
 
     <div ng-if="pollForm.$submitted && pollForm.option.$error">
-        Por favor selecione uma das opções acima.
+        Please, select one of the option above.
     </div>
 
     <div>
-        <button type="submit">Votar</button>
+        <button type="submit" class="btn btn-primary">Vote!</button>
+        <a class="btn btn-info" href="#/poll/{{ ctrl.poll.id }}/results">View results</a>
+        <a class="btn btn-default" href="#/polls">Return to the list</a>
     </div>
 </form>
-
-<a href="#/polls">Voltar para a lista</button>

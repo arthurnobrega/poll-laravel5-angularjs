@@ -12,16 +12,27 @@ angular.module('pollApp')
     });
 })
 
-.controller('SinglePollController', function(Polls, $routeParams, $location) {
+.controller('SinglePollController', function(Polls, PollOptions, $routeParams, $location) {
     var self = this;
 
-    self.pollIndex = $routeParams.id;
+    // Initialize some variables
+    self.pollId = $routeParams.id;
+    self.selectedOptionId = null;
+    self.poll = {};
 
-    self.selectedOption = null;
-    self.poll = Polls.getSinglePoll($routeParams.id);
+    // Get the Poll from API
+    Polls.get({pollId: self.pollId}, function(poll) {
+        self.poll = poll;
+    });
 
     self.vote = function(selectedOptionIndex) {
-        Polls.voteInPoll(self.pollIndex, selectedOptionIndex);
-        $location.path('/poll/' + self.pollIndex + '/results');
+        // Increment the votes
+        var option = self.poll.options[selectedOptionIndex];
+        option.votes++;
+
+        // Save the votes in API
+        PollOptions.update({pollId: self.pollId, optionId: option.id}, {votes: option.votes});
+
+        $location.path('/poll/' + self.pollId + '/results');
     }
 });

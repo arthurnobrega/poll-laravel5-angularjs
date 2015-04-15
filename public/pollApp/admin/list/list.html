@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>Manage Polls</h1>
+    </div>
+    <div class="col-md-4 text-right">
+        <br>
+        <a href="#/polls">Go to user view <em>(without security)</em></a>
+    </div>
+</div>
+
+
+<hr/>
+
+<a class="btn btn-primary btn-lg" href="#/admin/polls/add">Add Poll</a>
+
+<ul class="list-group">
+    <li class="list-group-item row" ng-repeat="poll in ctrl.polls">
+        <div class="col-md-8">
+            {{ poll.title }}
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-success" href="#/admin/polls/edit/{{ poll.id }}">Update</a>
+            <button class="btn btn-danger" ng-click="ctrl.deletePoll($index)">Delete</button>
+        </div>
+    </li>
+</ul>

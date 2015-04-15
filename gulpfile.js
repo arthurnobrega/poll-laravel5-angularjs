@@ -11,6 +11,20 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    mix.less('app.less');
+// elixir(function(mix) {
+//     mix.less('app.less');
+// });
+
+var gulp = require('gulp');
+var karma = require('gulp-karma');
+var gutil = require('gulp-util');
+
+gulp.task('karma', function() {
+    return gulp.src(['public/pollApp/tests/*.js'], { read: false })
+        .pipe(karma({ reporter: 'list' }))
+        .on('error', gutil.log);
+});
+
+gulp.task('watch-karma', function() {
+    gulp.watch(['public/pollApp/**', 'public/pollApp/tests/**'], ['karma']);
 });

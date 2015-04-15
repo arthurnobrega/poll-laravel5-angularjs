@@ -4,7 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Poll extends Model {
 
-    protected $fillable = ['title'];
+    protected $fillable = [
+        'title',
+        'options'
+    ];
 
     /**
      * A poll has many options.

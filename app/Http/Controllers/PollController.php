@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PollController extends Controller {
 
+	protected $poll;
 
-	public function __construct() {
-		$this->middleware('guest');
+	public function __construct(Poll $poll) {
+		$this->poll = $poll;
 	}
 
 	public function index() {
@@ -18,33 +19,38 @@ class PollController extends Controller {
 
 	public function getPoll($id = NULL) {
 		if ($id) {
-			$poll = Poll::find($id);
+			$poll = $this->poll->find($id);
+
 			// Fill the options
-			$poll->options;
+			if ($poll) {
+				$poll->options;
+			}
 
 			return $poll;
 		}
 
-		return Poll::all();
+		return $this->poll->all();
 	}
 
 	public function postPoll() {
-		$updateVariables = Input::get();
+		$input = Input::get();
 
-		$poll = new Poll();
-		$poll->title = $updateVariables['title'];
+		$poll = $this->poll;
+		$poll->title = $input['title'];
 		$poll->save();
 
-		$options = $updateVariables['options'];
+		$options = $input['options'];
 		foreach ($options as $option) {
-			$option['poll_id'] = $poll->id;
+			$option['poll_id'] = $this->poll->id;
 			$pollOption = PollOption::create($option);
 			$poll->options()->save($pollOption);
 		}
+
+		return $poll;
 	}
 
 	public function putPoll($id) {
-		$poll = Poll::find($id);
+		$poll = $this->poll->find($id);
 		$updateVariables = Input::get();
 
 		$poll->title = $updateVariables['title'];
@@ -59,10 +65,12 @@ class PollController extends Controller {
 			$pollOption = PollOption::create($option);
 			$poll->options()->save($pollOption);
 		}
+
+		return $this->poll;
 	}
 
 	public function deletePoll($id) {
-		$poll = Poll::find($id);
+		$poll = $this->poll->find($id);
 		$poll->delete();
 	}
 
